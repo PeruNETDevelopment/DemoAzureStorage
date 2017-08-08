@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DemoAzureBlobStorage
@@ -50,7 +46,9 @@ namespace DemoAzureBlobStorage
 
                 data.ForEach(x =>
                 {
-                    x.Imagen = (Bitmap) Image.FromFile(x.RutaArchivo);
+                    var result = AzureStorageBlobUtils.DownloadDocument(x.Alias).Result;
+                    
+                    x.Imagen = (Bitmap) Image.FromStream(new MemoryStream(Convert.FromBase64String(result)));
                 });
 
                 dataBlobBindingSource.DataSource = data;
@@ -68,10 +66,14 @@ namespace DemoAzureBlobStorage
                 if (ofd.ShowDialog() != DialogResult.OK) return;
 
                 _dataBlob.RutaArchivo = ofd.FileName;
+                var fileInfo = new FileInfo(_dataBlob.RutaArchivo);
+                _dataBlob.Alias = fileInfo.Name;
+
+                editDataBlobBindingSource.ResetBindings(false);
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             editDataBlobBindingSource.EndEdit();
             try
@@ -80,14 +82,14 @@ namespace DemoAzureBlobStorage
 
                 using (var ctx = new DataContext())
                 {
-                    ctx.Set<DataBlob>().Add(_dataBlob);
-                    ctx.SaveChanges();
-
-                    AzureStorageBlobUtils.UploadDocumentToAzure(new UploadDocumentAzureRequest
+                    _dataBlob.RutaNube = await AzureStorageBlobUtils.UploadDocumentToAzure(new UploadDocumentAzureRequest
                     {
                         NombreArchivo = _dataBlob.RutaArchivo,
                         NombreReferencia = _dataBlob.Alias
                     });
+
+                    ctx.Set<DataBlob>().Add(_dataBlob);
+                    await ctx.SaveChangesAsync();
 
                     ListData();
                 }

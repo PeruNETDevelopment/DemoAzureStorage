@@ -14,6 +14,8 @@ namespace DemoAzureBlobStorage
         [Required]
         public string RutaArchivo { get; set; }
 
+        public string RutaNube { get; set; }
+
         [NotMapped]
         public Bitmap Imagen { get; set; }
     }

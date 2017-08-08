@@ -19,7 +19,7 @@ namespace DemoAzureBlobStorage
             return account.CreateCloudBlobClient();
         }
 
-        public static async void UploadDocumentToAzure(UploadDocumentAzureRequest request)
+        public static async Task<string> UploadDocumentToAzure(UploadDocumentAzureRequest request)
         {
             var blobClient = GetBlobClient();
 
@@ -31,6 +31,8 @@ namespace DemoAzureBlobStorage
             var blob = container.GetBlockBlobReference(request.NombreReferencia);
 
             await blob.UploadFromFileAsync(request.NombreArchivo);
+
+            return blob.Uri.AbsoluteUri;
         }
 
         public static async Task<string> DownloadDocument(string blobReference)
