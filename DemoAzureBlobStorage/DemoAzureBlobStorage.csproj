@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="AzureStorageBlobUtils.cs" />
     <Compile Include="DataBlob.cs" />
+    <Compile Include="DataContext.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +100,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DataBlob.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtAlias = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -36,7 +37,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtRutaArchivo = new System.Windows.Forms.TextBox();
             this.btnList = new System.Windows.Forms.Button();
+            this.dataBlobBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aliasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rutaArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imagenDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.editDataBlobBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gdvData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBlobBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editDataBlobBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -50,6 +59,7 @@
             // 
             // txtAlias
             // 
+            this.txtAlias.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.editDataBlobBindingSource, "Alias", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtAlias.Location = new System.Drawing.Point(91, 23);
             this.txtAlias.Name = "txtAlias";
             this.txtAlias.Size = new System.Drawing.Size(343, 20);
@@ -63,6 +73,7 @@
             this.btnBrowse.TabIndex = 2;
             this.btnBrowse.Text = "...";
             this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // btnSave
             // 
@@ -72,12 +83,23 @@
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Grabar";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // gdvData
             // 
+            this.gdvData.AllowUserToAddRows = false;
+            this.gdvData.AllowUserToDeleteRows = false;
+            this.gdvData.AutoGenerateColumns = false;
             this.gdvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gdvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.aliasDataGridViewTextBoxColumn,
+            this.rutaArchivoDataGridViewTextBoxColumn,
+            this.imagenDataGridViewImageColumn});
+            this.gdvData.DataSource = this.dataBlobBindingSource;
             this.gdvData.Location = new System.Drawing.Point(12, 114);
             this.gdvData.Name = "gdvData";
+            this.gdvData.ReadOnly = true;
             this.gdvData.Size = new System.Drawing.Size(481, 189);
             this.gdvData.TabIndex = 4;
             // 
@@ -92,6 +114,7 @@
             // 
             // txtRutaArchivo
             // 
+            this.txtRutaArchivo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.editDataBlobBindingSource, "RutaArchivo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtRutaArchivo.Location = new System.Drawing.Point(91, 49);
             this.txtRutaArchivo.Name = "txtRutaArchivo";
             this.txtRutaArchivo.Size = new System.Drawing.Size(343, 20);
@@ -105,6 +128,43 @@
             this.btnList.TabIndex = 3;
             this.btnList.Text = "Listar";
             this.btnList.UseVisualStyleBackColor = true;
+            this.btnList.Click += new System.EventHandler(this.btnList_Click);
+            // 
+            // dataBlobBindingSource
+            // 
+            this.dataBlobBindingSource.DataSource = typeof(DemoAzureBlobStorage.DataBlob);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // aliasDataGridViewTextBoxColumn
+            // 
+            this.aliasDataGridViewTextBoxColumn.DataPropertyName = "Alias";
+            this.aliasDataGridViewTextBoxColumn.HeaderText = "Alias";
+            this.aliasDataGridViewTextBoxColumn.Name = "aliasDataGridViewTextBoxColumn";
+            this.aliasDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // rutaArchivoDataGridViewTextBoxColumn
+            // 
+            this.rutaArchivoDataGridViewTextBoxColumn.DataPropertyName = "RutaArchivo";
+            this.rutaArchivoDataGridViewTextBoxColumn.HeaderText = "RutaArchivo";
+            this.rutaArchivoDataGridViewTextBoxColumn.Name = "rutaArchivoDataGridViewTextBoxColumn";
+            this.rutaArchivoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // imagenDataGridViewImageColumn
+            // 
+            this.imagenDataGridViewImageColumn.DataPropertyName = "Imagen";
+            this.imagenDataGridViewImageColumn.HeaderText = "Imagen";
+            this.imagenDataGridViewImageColumn.Name = "imagenDataGridViewImageColumn";
+            this.imagenDataGridViewImageColumn.ReadOnly = true;
+            // 
+            // editDataBlobBindingSource
+            // 
+            this.editDataBlobBindingSource.DataSource = typeof(DemoAzureBlobStorage.DataBlob);
             // 
             // MainForm
             // 
@@ -123,6 +183,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Demo Azure Storage";
             ((System.ComponentModel.ISupportInitialize)(this.gdvData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBlobBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editDataBlobBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,6 +200,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtRutaArchivo;
         private System.Windows.Forms.Button btnList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aliasDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rutaArchivoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewImageColumn imagenDataGridViewImageColumn;
+        private System.Windows.Forms.BindingSource dataBlobBindingSource;
+        private System.Windows.Forms.BindingSource editDataBlobBindingSource;
     }
 }
 
