@@ -37,13 +37,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtRutaArchivo = new System.Windows.Forms.TextBox();
             this.btnList = new System.Windows.Forms.Button();
-            this.dataBlobBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aliasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rutaArchivoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imagenDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataBlobBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.editDataBlobBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gdvData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBlobBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editDataBlobBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -94,13 +95,13 @@
             this.gdvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.aliasDataGridViewTextBoxColumn,
-            this.rutaArchivoDataGridViewTextBoxColumn,
-            this.imagenDataGridViewImageColumn});
+            this.rutaArchivoDataGridViewTextBoxColumn});
             this.gdvData.DataSource = this.dataBlobBindingSource;
             this.gdvData.Location = new System.Drawing.Point(12, 114);
             this.gdvData.Name = "gdvData";
             this.gdvData.ReadOnly = true;
-            this.gdvData.Size = new System.Drawing.Size(481, 189);
+            this.gdvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gdvData.Size = new System.Drawing.Size(356, 189);
             this.gdvData.TabIndex = 4;
             // 
             // label2
@@ -130,9 +131,14 @@
             this.btnList.UseVisualStyleBackColor = true;
             this.btnList.Click += new System.EventHandler(this.btnList_Click);
             // 
-            // dataBlobBindingSource
+            // pictureBox1
             // 
-            this.dataBlobBindingSource.DataSource = typeof(DemoAzureBlobStorage.DataBlob);
+            this.pictureBox1.Location = new System.Drawing.Point(393, 114);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(268, 189);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -155,12 +161,9 @@
             this.rutaArchivoDataGridViewTextBoxColumn.Name = "rutaArchivoDataGridViewTextBoxColumn";
             this.rutaArchivoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // imagenDataGridViewImageColumn
+            // dataBlobBindingSource
             // 
-            this.imagenDataGridViewImageColumn.DataPropertyName = "Imagen";
-            this.imagenDataGridViewImageColumn.HeaderText = "Imagen";
-            this.imagenDataGridViewImageColumn.Name = "imagenDataGridViewImageColumn";
-            this.imagenDataGridViewImageColumn.ReadOnly = true;
+            this.dataBlobBindingSource.DataSource = typeof(DemoAzureBlobStorage.DataBlob);
             // 
             // editDataBlobBindingSource
             // 
@@ -170,7 +173,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(508, 315);
+            this.ClientSize = new System.Drawing.Size(677, 315);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.gdvData);
             this.Controls.Add(this.btnList);
             this.Controls.Add(this.btnSave);
@@ -183,6 +187,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Demo Azure Storage";
             ((System.ComponentModel.ISupportInitialize)(this.gdvData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataBlobBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.editDataBlobBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -206,6 +211,7 @@
         private System.Windows.Forms.DataGridViewImageColumn imagenDataGridViewImageColumn;
         private System.Windows.Forms.BindingSource dataBlobBindingSource;
         private System.Windows.Forms.BindingSource editDataBlobBindingSource;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

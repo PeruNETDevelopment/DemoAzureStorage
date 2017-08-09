@@ -16,7 +16,6 @@ namespace DemoAzureBlobStorage
 
         public string RutaNube { get; set; }
 
-        [NotMapped]
-        public Bitmap Imagen { get; set; }
+      
     }
 }

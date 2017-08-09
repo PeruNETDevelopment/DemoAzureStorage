@@ -35,7 +35,7 @@ namespace DemoAzureBlobStorage
             return blob.Uri.AbsoluteUri;
         }
 
-        public static async Task<string> DownloadDocument(string blobReference)
+        public static async Task<Stream> DownloadDocument(string blobReference)
         {
             var blobClient = GetBlobClient();
 
@@ -47,11 +47,11 @@ namespace DemoAzureBlobStorage
 
             var archivo = container.GetBlockBlobReference(blobReference);
 
-            using (var memArchivo = new MemoryStream())
+            var memArchivo = new MemoryStream();
             {
                 await archivo.DownloadToStreamAsync(memArchivo);
 
-                return Convert.ToBase64String(memArchivo.ToArray());
+                return memArchivo;
             }
         }
     }

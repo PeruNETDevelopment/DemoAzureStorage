@@ -36,6 +36,26 @@ namespace DemoAzureBlobStorage
                 }
             };
 
+            gdvData.DoubleClick += GdvDataOnDoubleClick;
+        }
+
+        private async void GdvDataOnDoubleClick(object sender, EventArgs eventArgs)
+        {
+            try
+            {
+
+                var seleccionado = dataBlobBindingSource.Current as DataBlob;
+                if (seleccionado == null) return;
+
+                var documento = await AzureStorageBlobUtils.DownloadDocument(seleccionado.Alias);
+
+                pictureBox1.Image = Image.FromStream(documento);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ListData()
@@ -43,13 +63,6 @@ namespace DemoAzureBlobStorage
             using (var ctx = new DataContext())
             {
                 var data = ctx.Set<DataBlob>().ToList();
-
-                data.ForEach(x =>
-                {
-                    var result = AzureStorageBlobUtils.DownloadDocument(x.Alias).Result;
-                    
-                    x.Imagen = (Bitmap) Image.FromStream(new MemoryStream(Convert.FromBase64String(result)));
-                });
 
                 dataBlobBindingSource.DataSource = data;
                 dataBlobBindingSource.ResetBindings(false);
